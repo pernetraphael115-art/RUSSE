@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ruska-cache-v5';
+const CACHE_NAME = 'ruska-cache-v6';
 const ASSETS = [
   './',
   './index.html',
@@ -21,6 +21,15 @@ const ASSETS = [
   './js/data/alphabet.js',
   './js/data/units_a0.js',
   './js/data/units_more.js',
+  './js/data/units_curriculum_expanded.js',
+  './js/data/vocab_bank.js',
+  './js/data/vocab_bank_2.js',
+  './js/data/vocab_bank_3.js',
+  './js/data/sentences_bank.js',
+  './js/data/sentences_bank_large.js',
+  './js/data/sentences_bank_batch3.js',
+  './js/data/sentences_bank_batch4.js',
+  './js/data/sentences_bank_batch5.js',
   './js/data/content.js',
   './js/views/home.js',
   './js/views/review.js',

@@ -19,6 +19,13 @@ export default async function render() {
       render().then(html => { viewRoot.innerHTML = html; });
     }
   };
+  window.app.nextTranslateSentence = (total) => {
+    currentSentenceIndex = (currentSentenceIndex + 1) % (total || 1);
+    const viewRoot = document.getElementById('view');
+    if (viewRoot) {
+      render().then(html => { viewRoot.innerHTML = html; });
+    }
+  };
   window.app.speak = speak;
 
   if (activeSubView === 'translate') {
@@ -104,7 +111,7 @@ function renderHub() {
 // ─────────────────────────────────────────────────────────────
 function renderTranslateModule() {
   const allSentences = getAllSentences();
-  const filtered = selectedLevel 
+  const filtered = (selectedLevel && selectedLevel !== 'ALL')
     ? allSentences.filter(s => s.level === selectedLevel)
     : allSentences;
 
@@ -213,11 +220,17 @@ function renderTranslateModule() {
 
     <!-- Filtre de niveaux pour la traduction -->
     <div style="margin-bottom: 14px; display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px;">
-      ${LEVELS.map(lvl => `
-        <button class="btn btn-sm ${lvl.id === selectedLevel ? 'btn-primary' : 'btn-secondary'}" onclick="app.setPracticeView('translate', '${lvl.id}')" style="padding: 5px 12px; font-size: 12px; border-radius: 999px;">
-          ${lvl.id}
-        </button>
-      `).join('')}
+      <button class="btn btn-sm ${selectedLevel === 'ALL' ? 'btn-primary' : 'btn-secondary'}" onclick="app.setPracticeView('translate', 'ALL')" style="padding: 5px 12px; font-size: 12px; border-radius: 999px; white-space: nowrap;">
+        Tous (${allSentences.length})
+      </button>
+      ${LEVELS.map(lvl => {
+        const count = allSentences.filter(s => s.level === lvl.id).length;
+        return `
+          <button class="btn btn-sm ${lvl.id === selectedLevel ? 'btn-primary' : 'btn-secondary'}" onclick="app.setPracticeView('translate', '${lvl.id}')" style="padding: 5px 12px; font-size: 12px; border-radius: 999px; white-space: nowrap;">
+            ${lvl.id} (${count})
+          </button>
+        `;
+      }).join('')}
     </div>
 
     <!-- Carte de la phrase -->

@@ -75,14 +75,17 @@ export default async function render() {
 
     <!-- Filtres de niveau -->
     <div style="margin-bottom: 16px; display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px;">
-      <button class="btn btn-sm ${filterLevel === 'ALL' ? 'btn-primary' : 'btn-secondary'}" onclick="app.setLexiconFilter('ALL')" style="padding: 5px 12px; font-size: 12px; border-radius: 999px;">
-        Tous
+      <button class="btn btn-sm ${filterLevel === 'ALL' ? 'btn-primary' : 'btn-secondary'}" onclick="app.setLexiconFilter('ALL')" style="padding: 5px 12px; font-size: 12px; border-radius: 999px; white-space: nowrap;">
+        Tous (${allWords.length})
       </button>
-      ${LEVELS.map(lvl => `
-        <button class="btn btn-sm ${filterLevel === lvl.id ? 'btn-primary' : 'btn-secondary'}" onclick="app.setLexiconFilter('${lvl.id}')" style="padding: 5px 12px; font-size: 12px; border-radius: 999px;">
-          ${lvl.id}
-        </button>
-      `).join('')}
+      ${LEVELS.map(lvl => {
+        const count = allWords.filter(w => w.level === lvl.id).length;
+        return `
+          <button class="btn btn-sm ${filterLevel === lvl.id ? 'btn-primary' : 'btn-secondary'}" onclick="app.setLexiconFilter('${lvl.id}')" style="padding: 5px 12px; font-size: 12px; border-radius: 999px; white-space: nowrap;">
+            ${lvl.id} (${count})
+          </button>
+        `;
+      }).join('')}
     </div>
 
     <div id="lexicon-list-container">
