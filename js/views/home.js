@@ -4,7 +4,7 @@ import a0Units from '../data/units_a0.js';
 
 export default async function render() {
   const levelData = LEVELS.find(l => l.id === state.level) || LEVELS[0];
-  const units = state.level === 'A0' ? a0Units : [];
+  const units = (!state.level || state.level === 'A0') ? a0Units : [];
   
   let html = `
     <div class="topbar">
