@@ -1,4 +1,4 @@
-import { state, saveState } from '../store.js';
+import { state, save } from '../store.js';
 import { getDueCards, updateCard } from '../srs.js';
 import { speak } from '../tts.js';
 import { shuffle } from '../text.js';
@@ -82,7 +82,7 @@ function gradeCard(grade) {
     dueQueue.push(card);
   }
   
-  saveState();
+  save();
   
   // Render next card or finish
   const viewRoot = document.getElementById('view');

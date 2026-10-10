@@ -1,10 +1,9 @@
-import { state, initStore, loadLevel, saveState } from './store.js';
+import { state } from './store.js';
 import { getDueCards } from './srs.js';
 import { LEVELS } from './data/levels.js';
 
 // App initialization
 async function initApp() {
-  await initStore();
   
   // Set up routing
   window.addEventListener('hashchange', handleRoute);
@@ -24,7 +23,7 @@ const routes = {
   '/practice': () => import('./views/practice.js').then(m => m.default()),
   '/lexicon': () => import('./views/lexicon.js').then(m => m.default()),
   '/profile': () => import('./views/profile.js').then(m => m.default()),
-  '/unit': () => import('./views/unit.js').then(m => m.default),
+  '/unit': () => import('./views/unit.js').then(m => m.default()),
   '/flashcards': () => import('./views/flashcards.js').then(m => m.default()),
 };
 

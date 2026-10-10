@@ -1,4 +1,4 @@
-import { state, saveState } from '../store.js';
+import { state, save } from '../store.js';
 import { md } from '../text.js';
 import { speak } from '../tts.js';
 import a0Units from '../data/units_a0.js';
@@ -130,7 +130,7 @@ export default async function render(path) {
       });
     }
     
-    saveState();
+    save();
     window.location.hash = '#/';
   };
   
