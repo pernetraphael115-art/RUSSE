@@ -35,12 +35,12 @@ export async function handleRoute() {
   // Toggle immersive mode (hide tabbar on full-screen activities)
   if (routeKey === '/unit' || routeKey === '/flashcards') {
     document.body?.classList?.add('immersive');
-    const tabbar = document.getElementById('tabbar');
-    if (tabbar) tabbar.style.display = 'none';
   } else {
     document.body?.classList?.remove('immersive');
-    const tabbar = document.getElementById('tabbar');
-    if (tabbar) tabbar.style.display = 'flex';
+  }
+  const tabbar = document.getElementById('tabbar');
+  if (tabbar) {
+    tabbar.style.display = (routeKey === '/unit' || routeKey === '/flashcards') ? 'none' : '';
   }
 
   // Update tab bar active classes
