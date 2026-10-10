@@ -1,0 +1,45 @@
+// The 33 letters of the Russian alphabet.
+// [upper, lower, name (spoken), sound (FR), example, translation, category]
+// category: same = comme en français · false = faux ami · new = nouvelle lettre · sign = signe
+export const ALPHABET = [
+  ['А', 'а', 'а', '[a] comme dans « papa »', 'ма́ма', 'maman', 'same'],
+  ['Б', 'б', 'бэ', '[b] comme dans « bébé »', 'ба́бушка', 'grand-mère', 'new'],
+  ['В', 'в', 'вэ', '[v] — attention, ce n’est PAS un B !', 'вода́', 'eau', 'false'],
+  ['Г', 'г', 'гэ', '[g] toujours dur, comme dans « gare »', 'газе́та', 'journal', 'new'],
+  ['Д', 'д', 'дэ', '[d] comme dans « dé »', 'дом', 'maison', 'new'],
+  ['Е', 'е', 'е', '[yé] en début de mot / après voyelle ; [é] + consonne mouillée sinon', 'ле́то', 'été', 'false'],
+  ['Ё', 'ё', 'ё', '[yo] — toujours accentuée', 'ёлка', 'sapin', 'new'],
+  ['Ж', 'ж', 'жэ', '[j] comme dans « jour », toujours dur', 'журна́л', 'magazine', 'new'],
+  ['З', 'з', 'зэ', '[z] comme dans « zéro » (ressemble au chiffre 3)', 'зима́', 'hiver', 'new'],
+  ['И', 'и', 'и', '[i] comme dans « lit »', 'и́мя', 'prénom', 'new'],
+  ['Й', 'й', 'и кра́ткое', '[y] bref, comme dans « yaourt » ou « travail »', 'чай', 'thé', 'new'],
+  ['К', 'к', 'ка', '[k] comme dans « kilo »', 'кот', 'chat', 'same'],
+  ['Л', 'л', 'эль', '[l] — plus sombre, langue contre les dents', 'ла́мпа', 'lampe', 'new'],
+  ['М', 'м', 'эм', '[m] comme dans « maman »', 'мо́ре', 'mer', 'same'],
+  ['Н', 'н', 'эн', '[n] — attention, ce n’est PAS un H !', 'нос', 'nez', 'false'],
+  ['О', 'о', 'о', '[o] si accentuée, [a] sinon', 'окно́', 'fenêtre', 'same'],
+  ['П', 'п', 'пэ', '[p] comme dans « papa »', 'па́па', 'papa', 'new'],
+  ['Р', 'р', 'эр', '[r] roulé (comme en espagnol) — PAS un P !', 'ры́ба', 'poisson', 'false'],
+  ['С', 'с', 'эс', '[s] comme dans « sac » — PAS un K !', 'сок', 'jus', 'false'],
+  ['Т', 'т', 'тэ', '[t] comme dans « table »', 'торт', 'gâteau', 'same'],
+  ['У', 'у', 'у', '[ou] comme dans « loup » — PAS un Y !', 'у́тро', 'matin', 'false'],
+  ['Ф', 'ф', 'эф', '[f] comme dans « fête »', 'фильм', 'film', 'new'],
+  ['Х', 'х', 'ха', '[kh] raclé, comme la jota espagnole — PAS un X !', 'хлеб', 'pain', 'false'],
+  ['Ц', 'ц', 'цэ', '[ts] comme dans « tsar »', 'царь', 'tsar', 'new'],
+  ['Ч', 'ч', 'чэ', '[tch] mouillé, comme dans « tchèque »', 'чай', 'thé', 'new'],
+  ['Ш', 'ш', 'ша', '[ch] dur, comme dans « chat »', 'шко́ла', 'école', 'new'],
+  ['Щ', 'щ', 'ща', '[chch] long et mouillé', 'борщ', 'bortsch', 'new'],
+  ['Ъ', 'ъ', 'твёрдый знак', 'signe dur : aucun son, sépare la consonne de la voyelle', 'подъе́зд', 'entrée d’immeuble', 'sign'],
+  ['Ы', 'ы', 'ы', '[ɨ] un « i » dur, langue tirée en arrière', 'сыр', 'fromage', 'new'],
+  ['Ь', 'ь', 'мя́гкий знак', 'signe mou : aucun son, mouille la consonne précédente', 'мать', 'mère', 'sign'],
+  ['Э', 'э', 'э', '[è] comme dans « est »', 'э́то', 'c’est / ceci', 'new'],
+  ['Ю', 'ю', 'ю', '[you] comme « you » en anglais', 'ю́бка', 'jupe', 'new'],
+  ['Я', 'я', 'я', '[ya] comme dans « yak »', 'я́блоко', 'pomme', 'new'],
+];
+
+export const ALPHA_CATS = {
+  same: { label: 'Comme en français', color: '#3ddc97' },
+  false: { label: 'Faux amis', color: '#ff8f4d' },
+  new: { label: 'Nouvelles', color: '#7b5cff' },
+  sign: { label: 'Signes', color: '#ffc35c' },
+};
