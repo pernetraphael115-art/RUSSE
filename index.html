@@ -20,15 +20,38 @@
   <link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
+
+  <script>
+    // Global safety catch
+    window.onerror = function(msg, url, line, col, err) {
+      console.error('Ruska global error:', msg, url, line, err);
+      const b = document.getElementById('debug-banner');
+      if (b) {
+        b.style.display = 'block';
+        b.innerHTML = '<strong>Erreur :</strong> ' + msg;
+      }
+    };
+  </script>
 </head>
 <body>
   <div class="bg-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <div id="file-protocol-warning" style="display: none; background: #ff5c72; color: #fff; padding: 16px; position: fixed; top: 0; left: 0; right: 0; z-index: 99999; text-align: center; font-size: 14px; font-weight: 600;">
+    ⚠️ Navigateur en mode fichier local (file://). Ouvrez <a href="http://localhost:8080" style="text-decoration: underline; color: #fff; font-weight: 800;">http://localhost:8080</a> dans votre navigateur pour activer tous les modules et l'audio !
+  </div>
+  <script>
+    if (window.location.protocol === 'file:') {
+      document.getElementById('file-protocol-warning').style.display = 'block';
+    }
+  </script>
+
+  <div id="debug-banner" style="display: none; background: rgba(255, 92, 114, 0.9); color: #fff; padding: 12px; position: fixed; bottom: 80px; left: 16px; right: 16px; z-index: 9999; border-radius: 12px; font-size: 13px;"></div>
 
   <div id="app">
     <main id="view" tabindex="-1"></main>
 
     <nav id="tabbar" aria-label="Navigation principale">
-      <a href="#/" data-tab="home" id="tab-home">
+      <a href="#/" data-tab="home" id="tab-home" class="active">
         <svg viewBox="0 0 24 24"><path d="M9 20H5a1 1 0 0 1-1-1v-8.5a1 1 0 0 1 .4-.8l7-5.25a1 1 0 0 1 1.2 0l7 5.25a1 1 0 0 1 .4.8V19a1 1 0 0 1-1 1h-4v-6h-6z"/></svg>
         <span>Parcours</span>
       </a>
@@ -58,10 +81,13 @@
   <noscript>Ruska a besoin de JavaScript pour fonctionner.</noscript>
   <script type="module" src="js/app.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('SW enregistré:', reg.scope))
+          .then(reg => {
+            console.log('SW enregistré:', reg.scope);
+            reg.update();
+          })
           .catch(err => console.error('Erreur SW:', err));
       });
     }

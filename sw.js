@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ruska-cache-v2';
+const CACHE_NAME = 'ruska-cache-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -20,6 +20,8 @@ const ASSETS = [
   './js/data/levels.js',
   './js/data/alphabet.js',
   './js/data/units_a0.js',
+  './js/data/units_more.js',
+  './js/data/content.js',
   './js/views/home.js',
   './js/views/review.js',
   './js/views/practice.js',
@@ -32,7 +34,11 @@ const ASSETS = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS))
+      .then(cache => {
+        return Promise.all(
+          ASSETS.map(url => cache.add(url).catch(err => console.warn('Cache notice:', url, err)))
+        );
+      })
       .then(() => self.skipWaiting())
   );
 });
@@ -54,8 +60,15 @@ self.addEventListener('fetch', event => {
     caches.match(event.request)
       .then(response => {
         // Return cache or fallback to network
-        return response || fetch(event.request).catch(() => {
-          // Fallback to index.html for navigation requests (SPA)
+        return response || fetch(event.request).then(netResponse => {
+          // If valid response and same origin, cache it
+          if (netResponse && netResponse.status === 200 && event.request.method === 'GET') {
+            const clone = netResponse.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          }
+          return netResponse;
+        }).catch(() => {
+          // Fallback to index.html for navigation requests (SPA offline)
           if (event.request.mode === 'navigate') {
             return caches.match('./index.html');
           }
